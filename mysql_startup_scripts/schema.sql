@@ -1,0 +1,11 @@
+CREATE DATABASE IF NOT EXISTS test_db;
+use test_db;
+
+CREATE TABLE IF NOT EXISTS users
+(
+id VARCHAR(255),
+name VARCHAR(255),
+email VARCHAR(255),
+type VARCHAR(255),
+PRIMARY KEY (id)
+);
