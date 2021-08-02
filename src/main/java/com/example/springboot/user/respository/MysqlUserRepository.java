@@ -32,7 +32,7 @@ public class MysqlUserRepository implements UserRepository {
         String query = "SELECT * FROM users WHERE id=?";
         UserDAO userDAO = null;
         try {
-            userDAO = jdbcTemplate.queryForObject(query, BeanPropertyRowMapper.newInstance(UserDAO.class), id);
+            userDAO = jdbcTemplate.queryForObject(query, new BeanPropertyRowMapper<>(UserDAO.class), id);
         } catch (DataAccessException e) {
             logger.error("No rows found :: ", e);
         }
@@ -42,7 +42,7 @@ public class MysqlUserRepository implements UserRepository {
     @Override
     public List<UserDAO> getUsers() {
         String query = "SELECT * FROM users";
-        List<UserDAO> userDAOList = jdbcTemplate.queryForList(query, UserDAO.class);
+        List<UserDAO> userDAOList = jdbcTemplate.query(query, new BeanPropertyRowMapper<>(UserDAO.class));
         return userDAOList;
     }
 

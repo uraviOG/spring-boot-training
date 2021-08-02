@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Component
 @Validated
@@ -29,6 +31,12 @@ public class UserServiceImpl implements UserService {
         Optional<UserDAO> userDAO = userRepository.getUserById(userId);
         return userDAO.map(User::from)
                 .orElseThrow(() -> new UserNotFoundException("User with id[" + userId + "] not found"));
+    }
+
+    @Override
+    public List<User> getUsers() {
+        List<UserDAO> userDAOList = userRepository.getUsers();
+        return userDAOList.stream().map(User::from).collect(Collectors.toList());
     }
 
     @Override

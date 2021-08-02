@@ -2,9 +2,11 @@ package com.example.springboot.user.controller;
 
 import com.example.springboot.user.exceptions.UserNotFoundException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -12,10 +14,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import javax.validation.ValidationException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 // TODO : uncomment to see how to create custom exception handlers
-//@ControllerAdvice
-//@Order(-1) // order tells spring the priority to run this handler, Lower values have higher priority
+@ControllerAdvice
+@Order(-1) // order tells spring the priority to run this handler, Lower values have higher priority
 public class ApiExceptionHandlerAdvice {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -80,6 +83,28 @@ public class ApiExceptionHandlerAdvice {
 
         public void setCode(Integer code) {
             this.code = code;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            ErrorResponse that = (ErrorResponse) o;
+            return Objects.equals(code, that.code) &&
+                    Objects.equals(message, that.message);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(code, message);
+        }
+
+        @Override
+        public String toString() {
+            return "ErrorResponse{" +
+                    "code=" + code +
+                    ", message='" + message + '\'' +
+                    '}';
         }
     }
 

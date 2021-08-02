@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/v2/users")
@@ -42,6 +44,19 @@ public class UserControllerV2 {
                 .setName(user.getName())
                 .setEmail(user.getEmail())
                 .setType(user.getType());
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(method = RequestMethod.GET)
+    public List<UserInfoResponse> getAllUsers() {
+        // fetch user details object for the given id
+        List<User> usersList = userService.getUsers();
+
+        return usersList.stream().map(user ->
+                new UserInfoResponse().setId(user.getId())
+                .setName(user.getName())
+                .setEmail(user.getEmail())
+                .setType(user.getType())).collect(Collectors.toList());
     }
 
     @ResponseStatus(HttpStatus.OK)
