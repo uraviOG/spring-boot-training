@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
+@Validated
 @RestController
 @RequestMapping("/users")
 public class UserControllerV1 {
@@ -37,7 +41,7 @@ public class UserControllerV1 {
 
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public UserInfoResponse createUser(@RequestBody UserCreationRequest userCreationRequest) {
+    public UserInfoResponse createUser(@Valid @RequestBody UserCreationRequest userCreationRequest) {
         // create new user
         logger.info("creating new user with request :: " + userCreationRequest);
         String userId = RandomStringUtils.randomAlphanumeric(10);

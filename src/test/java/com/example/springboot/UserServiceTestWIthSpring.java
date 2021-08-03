@@ -55,7 +55,7 @@ public class UserServiceTestWIthSpring {
     static class TestContextConfiguration {
 
         @Bean
-        public UserService UserService(UserRepository userRepository) {
+        public UserService userService(UserRepository userRepository) {
             return new UserServiceImpl(userRepository);
         }
     }

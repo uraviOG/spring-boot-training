@@ -3,6 +3,7 @@ package com.example.springboot.user.controller;
 import com.example.springboot.user.controller.model.UserCreationRequest;
 import com.example.springboot.user.controller.model.UserInfoResponse;
 import com.example.springboot.user.service.UserService;
+import com.example.springboot.user.service.UserServiceImpl;
 import com.example.springboot.user.service.model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,8 +32,8 @@ public class UserControllerV2 {
     private final UserService userService;
 
     @Autowired
-    public UserControllerV2(UserService userService) {
-        this.userService = userService;
+    public UserControllerV2(UserServiceImpl userServiceImpl) {
+        this.userService = userServiceImpl;
     }
 
     @ResponseStatus(HttpStatus.OK)

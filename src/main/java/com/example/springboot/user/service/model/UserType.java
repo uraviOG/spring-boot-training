@@ -17,7 +17,7 @@ public enum UserType {
         this.value = type;
     }
 
-    // TODO : uncomment and see how the UserType values change in response
+    // TODO : comment this and see how the UserType values change in response
     @JsonValue
     public String getValue() {
         return this.value;
