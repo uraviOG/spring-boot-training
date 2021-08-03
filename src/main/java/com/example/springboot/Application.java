@@ -10,7 +10,7 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 
-// TODO : uncomment to inspect ApplicationContext and Beans
+ //TODO : uncomment to inspect ApplicationContext and Beans
 //	@Bean
 //	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
 //		return args -> {
